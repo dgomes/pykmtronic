@@ -1,5 +1,6 @@
 from aiohttp import ClientSession, ClientResponse, BasicAuth
 
+
 class Auth:
     """Class to make authenticated requests."""
 
@@ -13,5 +14,7 @@ class Auth:
         """Make a request."""
 
         return await self.websession.request(
-            "GET", f"{self.host}/{path}", auth=self._auth,
+            "GET",
+            f"{self.host}/{path}",
+            auth=self._auth,
         )

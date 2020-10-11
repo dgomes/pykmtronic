@@ -23,7 +23,7 @@ class KMTronicHubAPI:
         resp.raise_for_status()
 
         response_xml = etree.fromstring(await resp.text())
-        response = response_xml.xpath('/response/*')
+        response = response_xml.xpath("/response/*")
 
         status = {}
         for relay in response[1:]:
@@ -36,7 +36,9 @@ class KMTronicHubAPI:
     async def async_get_relays(self) -> List[Relay]:
         """Create relay representations from status information."""
         status = await self.async_get_status()
-        self.relays = [Relay(number, status, self.auth) for number, status in status.items()]
+        self.relays = [
+            Relay(number, status, self.auth) for number, status in status.items()
+        ]
 
         return self.relays
 
@@ -47,4 +49,3 @@ class KMTronicHubAPI:
         logger.debug("Status of relays: %s", status)
         for relay in self.relays:
             relay.is_on = status[relay.id]
-            

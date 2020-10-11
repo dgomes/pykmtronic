@@ -2,11 +2,11 @@ from typing import List
 from lxml import etree
 import logging
 
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
-
 from .auth import Auth
 from .relay import Relay
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 
 class KMTronicHubAPI:

@@ -1,3 +1,5 @@
+*.egg-info
+*.pyc
 /.vscode
 /lixo.py
 /teste.py

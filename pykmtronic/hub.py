@@ -15,7 +15,12 @@ class KMTronicHubAPI:
     def __init__(self, auth: Auth):
         """Initialize the API and store the auth so we can make requests."""
         self.auth = auth
+        self.host = auth.host
         self.relays = []
+
+    @property
+    def name(self)-> str:
+        return self.host
 
     async def async_get_status(self) -> List[tuple]:
         """Return status on relays."""

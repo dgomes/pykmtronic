@@ -21,7 +21,7 @@ class Relay:
 
     @is_on.setter
     def is_on(self, b):
-        logger.debug(f"Relay{self._relay} if now {'ON' if b else 'OFF'}")
+        logger.debug(f"Relay{self._relay} is now {'ON' if b else 'OFF'}")
         self._is_on = b
 
     async def turn_on(self):

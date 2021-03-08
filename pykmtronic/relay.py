@@ -1,37 +1,47 @@
+"""Representation of a single relay."""
 from pykmtronic.auth import Auth
 import logging
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
 
 
 class Relay:
+    """Relay Object."""
+
     def __init__(self, number: int, status: bool, auth: Auth):
+        """Relay constructor."""
         self._relay = number
         self.auth = auth
-        self.is_on = status  # True means ON
+        self.is_energised = status  # True means energised/ON
 
     @property
     def id(self) -> int:
+        """Id of the relay, position of the relay in the device."""
         return self._relay
 
     @property
-    def is_on(self):
-        return self._is_on
+    def is_energised(self):
+        """Wether the relay is energised (ON/True) or not (OFF/False)."""
+        return self._is_energised
 
-    @is_on.setter
-    def is_on(self, b):
-        logger.debug(f"Relay{self._relay} is now {'ON' if b else 'OFF'}")
-        self._is_on = b
+    @is_energised.setter
+    def is_energised(self, b):
+        """Set state variable _is_energised."""
+        logger.debug(
+            f"Relay{self._relay} is now {'Energised' if b else 'De-energised'}"
+        )
+        self._is_energised = b
 
-    async def turn_on(self):
+    async def energise(self):
+        """Energises the relay connecting COM to NO."""
         logger.debug(f"Sending ... FF{self._relay:02}01")
         resp = await self.auth.request(f"FF{self._relay:02}01")
         resp.raise_for_status()
-        self.is_on = True
+        self.is_energised = True
 
-    async def turn_off(self):
+    async def de_energise(self):
+        """De-energises the relay connecting COM to NO."""
         logger.debug(f"Sending ... FF{self._relay:02}00")
         resp = await self.auth.request(f"FF{self._relay:02}00")
         resp.raise_for_status()
-        self.is_on = False
+        self.is_energised = False

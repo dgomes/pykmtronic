@@ -1,3 +1,4 @@
+"""Example usage of pykmtronic."""
 import asyncio
 import aiohttp
 import time
@@ -18,15 +19,15 @@ async def main():
 
         r = relays[0]
 
-        print("is relay1 ON?", r.is_on)
-        await r.turn_on()
+        print("is relay1 ON?", r.is_energised)
+        await r.energise()
         time.sleep(2)
-        print("is relay1 ON?", r.is_on)
+        print("is relay1 ON?", r.is_energised)
 
-        await r.turn_off()
+        await r.de_energise()
         time.sleep(2)
         await api.async_update_relays()
-        print("is relay1 ON?", r.is_on)
+        print("is relay1 ON?", r.is_energised)
 
 
 asyncio.run(main())

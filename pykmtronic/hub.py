@@ -1,3 +1,4 @@
+"""Representation of a KMtronic Device."""
 from typing import List
 from lxml import etree
 import logging
@@ -6,7 +7,6 @@ from .auth import Auth
 from .relay import Relay
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
 
 
 class KMTronicHubAPI:
@@ -19,7 +19,8 @@ class KMTronicHubAPI:
         self.relays = []
 
     @property
-    def name(self)-> str:
+    def name(self) -> str:
+        """Return the name of the kmtronic device, usually an IP."""
         return self.host
 
     async def async_get_status(self) -> List[tuple]:

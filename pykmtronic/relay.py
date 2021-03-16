@@ -45,3 +45,10 @@ class Relay:
         resp = await self.auth.request(f"FF{self._relay:02}00")
         resp.raise_for_status()
         self.is_energised = False
+
+    async def toggle(self):
+        """Toggle the relay."""
+        logger.debug(f"Calling relays.cgi?relay={self._relay}")
+        resp = await self.auth.request(f"relays.cgi?relay={self._relay}")
+        resp.raise_for_status()
+        self.is_energised = not self.is_energised

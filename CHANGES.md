@@ -1,3 +1,6 @@
+# 0.3.0
+Serialize HTTP requests by spacing 100ms
+
 # 0.2.0
 Adds toggle() method to use relays.cgi?relay=NUMBER
 

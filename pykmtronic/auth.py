@@ -19,3 +19,4 @@ class Auth:
                 f"{self.host}/{path}",
                 auth=self._auth,
             )
+            await asyncio.sleep(0.1)

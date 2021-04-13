@@ -54,4 +54,4 @@ class KMTronicHubAPI:
 
         logger.debug("Status of relays: %s", status)
         for relay in self.relays:
-            relay.is_on = status[relay.id]
+            relay.is_energised = status[relay.id]

@@ -1,5 +1,5 @@
+import asyncio
 from aiohttp import ClientSession, ClientResponse, BasicAuth
-
 
 class Auth:
     """Class to make authenticated requests."""
@@ -9,12 +9,13 @@ class Auth:
         self.websession = websession
         self.host = host
         self._auth = BasicAuth(user, password)
+        self.lock = asyncio.Lock()
 
     async def request(self, path: str) -> ClientResponse:
         """Make a request."""
-
-        return await self.websession.request(
-            "GET",
-            f"{self.host}/{path}",
-            auth=self._auth,
-        )
+        async with self.lock:
+            return await self.websession.request(
+                "GET",
+                f"{self.host}/{path}",
+                auth=self._auth,
+            )
